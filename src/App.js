@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
-
+import obj from "./data/db.json"
+import {useState, useEffect, useContext} from 'react'
+import Wordle from "./components/Wordle"
+import ThemeProvider from "./context/ThemeProvider"
+import { ThemeContext } from "./context/ThemeProvider"
 function App() {
+  const [solution, setSolution] = useState(null)
+  const themeObj=useContext(ThemeContext);
+  useEffect(() => {
+    const randomSolution=obj.solutions[Math.floor(Math.random()*obj.solutions.length)];
+    setSolution(randomSolution.word)
+    console.log(randomSolution)
+  }, [setSolution])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider>
+      <div className="App">
+        <h1>Wordle Game</h1>
+        {solution && <Wordle solution={solution} />}
+      </div>
+    </ThemeProvider>
+    
   );
 }
 
