@@ -14,6 +14,5 @@ export default function Keypad({usedKeys}) {
             return <div key={l.key} className={color}>{l.key}</div>
         })}
     </div>
-    
   )
 }
